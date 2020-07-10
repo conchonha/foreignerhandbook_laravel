@@ -24,3 +24,7 @@ Route::get('login', function () {
 Route::get('model/user/getData','UserController@getData');
 
 Route::post('model/user/register','UserController@register')->name('register');
+
+Route::post('model/user/login','UserController@login')->name('login');
+
+Route::get('model/menu/getDataMenuTop','MenuController@getDataMenuTop');

@@ -18,12 +18,18 @@ class UserController extends Controller
     			$table = new user();
     			$table->name = $name;
     			$table->email = $email;
-    			$table->password = Hash::make($password);
+    			$table->password = md5($password);
     			$table->token = Str::Random(60);
+                $table->avatar='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRDsanOS9e9oVDhhABGmoSHdjCkXnhfOyXMgg&usqp=CAU';
     			$table->save();
-    			echo "Sussces";
+                if($table){
+                    echo "Susscess";
+                }else{
+                    echo "Account already exists";
+                }
+    			
     		}else{
-    			echo "datta null";
+    			echo "Erro Data";
     		}
     	}else{
     		echo "null send datta";
@@ -31,7 +37,31 @@ class UserController extends Controller
     }
 
     public function getData(){
-        $table = user::all();
+        $table = user::all()->t;
         echo json_encode($table);
     }
+
+    public function login(Request $request){
+        if($request->has('name') && $request->has('password')){
+            $name = $request->name;
+            $password = $request->password;
+
+            if($name != null && $password != null){
+
+                $table = user::where([['name','=',$name],['password','=',md5($password)]])->get();
+                if($table){
+                    echo json_encode($table[0]);
+                }else{
+                    echo "Account already exists";
+                }
+
+            }else{
+                echo "Data not null";
+            }
+
+        }else{
+            echo "No send data";
+        }
+    }
+
 }
