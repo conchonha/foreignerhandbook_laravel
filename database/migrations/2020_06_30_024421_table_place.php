@@ -22,6 +22,8 @@ class TablePlace extends Migration
             $table->string('overview',4000);
             $table->string('arrayImageView',4000);
             $table->integer('id_ingredient');
+            $table->string('lat',200);
+            $table->string('lng',200);
             $table->timestamps(); 
         });
     }

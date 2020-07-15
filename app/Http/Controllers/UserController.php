@@ -50,11 +50,9 @@ class UserController extends Controller
 
                 $table = user::where([['name','=',$name],['password','=',md5($password)]])->get();
                 if($table){
+                  // $data=['status'=>'200','resultf'=>$table];
                     echo json_encode($table[0]);
-                }else{
-                    echo "Account already exists";
                 }
-
             }else{
                 echo "Data not null";
             }

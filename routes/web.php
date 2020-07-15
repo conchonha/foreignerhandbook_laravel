@@ -28,3 +28,11 @@ Route::post('model/user/register','UserController@register')->name('register');
 Route::post('model/user/login','UserController@login')->name('login');
 
 Route::get('model/menu/getDataMenuTop','MenuController@getDataMenuTop');
+
+Route::get('model/menu/getDataMenuBottom','MenuController@getDataMenuBottom');
+
+Route::get('model/event/getDataEventRanDom','EvenController@getDataEventRanDom');
+
+Route::get('model/place/getDataPlaceHomeRandom/id={id}','PlaceController@getDataPlaceHomeRandom');
+
+Route::get('model/place/getDataImageHomeRandom','PlaceController@getDataImageHomeRandom');
