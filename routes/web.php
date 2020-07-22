@@ -33,6 +33,12 @@ Route::get('model/menu/getDataMenuBottom','MenuController@getDataMenuBottom');
 
 Route::get('model/event/getDataEventRanDom','EvenController@getDataEventRanDom');
 
-Route::get('model/place/getDataPlaceHomeRandom/id={id}','PlaceController@getDataPlaceHomeRandom');
+Route::get('model/place/getDataPlaceHomeRandom','PlaceController@getDataPlaceHomeRandom');
 
 Route::get('model/place/getDataImageHomeRandom','PlaceController@getDataImageHomeRandom');
+
+Route::get('model/ingredient/getDataIngredientIdMenu/id_menu={id}','ingredientController@getData');
+
+Route::get('model/ingredient/getDataPlaceIdIngredient','PlaceController@getDataPlaceIdIngredient');
+
+Route::get('model/place/getDataPlaceIdPlace','PlaceController@getDataPlaceIdPlace');

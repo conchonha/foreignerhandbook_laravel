@@ -37,8 +37,8 @@ class UserController extends Controller
     }
 
     public function getData(){
-        $table = user::all()->t;
-        echo json_encode($table);
+        $table = user::all();
+        return $table;
     }
 
     public function login(Request $request){
@@ -47,11 +47,10 @@ class UserController extends Controller
             $password = $request->password;
 
             if($name != null && $password != null){
-
                 $table = user::where([['name','=',$name],['password','=',md5($password)]])->get();
                 if($table){
-                  // $data=['status'=>'200','resultf'=>$table];
-                    echo json_encode($table[0]);
+                    $data=['status'=>'200','data'=>$table[0]];
+                    echo json_encode($data);
                 }
             }else{
                 echo "Data not null";
