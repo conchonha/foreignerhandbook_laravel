@@ -11,8 +11,8 @@ class PlaceController extends Controller
 		$id = $request->id;
 		if($id != null){
 			$table = place::all();
-			$data=['status'=>'200','data'=>$table];
-			echo json_encode($data);
+			
+			return $this->respondWithJson($table,$table->count());
 		}
 	}
 
@@ -27,8 +27,8 @@ class PlaceController extends Controller
 				}else{
 					$table = place::select('place.id','place.name','place.image')->join('ingredient','place.id_ingredient','=','ingredient.id')->where('ingredient.id_menu','=',$id)->orderBy('ingredient.id','desc')->get();
 				}
-				$data=['status'=>'200','data'=>$table];
-				echo json_encode($data);
+				
+				return $this->respondWithJson($table,$table->count());
 			}
 		}else{
 			if($id != null){
@@ -38,8 +38,8 @@ class PlaceController extends Controller
 				}else{
 					$table = place::select('place.id','place.name','place.image')->join('ingredient','place.id_ingredient','=','ingredient.id')->where('ingredient.id','=',$id)->orderBy('ingredient.id','desc')->get();
 				}
-				$data=['status'=>'200','data'=>$table];
-				echo json_encode($data);
+			
+				return $this->respondWithJson($table,$table->count());
 			}
 		}	
 	}
@@ -47,15 +47,24 @@ class PlaceController extends Controller
 	public function getDataPlaceIdIngredient(Request $request){
 		$id = $request->id;
 		$table = place::select('place.id','place.name','place.image','place.introduce')->where('place.id_ingredient','=',$id)->orderBy('place.id','desc')->get();
-		$data=['status'=>'200','data'=>$table];
-				echo json_encode($data);
+
+		return $this->respondWithJson($table,$table->count());
 	}
 
 	public function getDataImageHomeRandom(){
-		$count = place::count();
 		$table = place::select('place.id','place.image')->orderBy('place.id','desc')->get();
-		$data=['status'=>'200','data'=>$table];
-		echo json_encode($data);
+		return $this->respondWithJson($table,$table->count());
 	}
+
+
+	public function respondWithJson($data,$total)
+    {
+        return response()->json([
+            'message' => 'Successfully',
+            'statuscode' => '200',
+            'total' => $total,
+            'data' => $data,
+        ]);
+    }
     
 }

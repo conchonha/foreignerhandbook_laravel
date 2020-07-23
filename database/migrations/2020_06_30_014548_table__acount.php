@@ -24,6 +24,7 @@ class TableAcount extends Migration
             $table ->string('avatar',200)->nullable();
             $table->date('age')->nullable();
             $table ->boolean('gender')->nullable();
+            $table->integer('id_hierarchy');
             $table->timestamps(); 
         });
     }

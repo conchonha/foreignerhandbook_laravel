@@ -10,9 +10,19 @@ class IngredientController extends Controller
 	public function getData($id){
 		$table = ingredient::where('ingredient.id_menu','=',$id)->get();
 		if($table){
-			$data=['status'=>'200','data'=>$table];
-			echo json_encode($data);
+			
+			return $this->respondWithJson($table,$table->count());
 		}
 	}
+
+	 public function respondWithJson($data,$total)
+    {
+        return response()->json([
+            'message' => 'Successfully',
+            'statuscode' => '200',
+            'total' => $total,
+            'data' => $data,
+        ]);
+    }
     
 }

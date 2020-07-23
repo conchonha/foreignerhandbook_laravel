@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\user;
 
 class UserController extends Controller
@@ -38,7 +39,7 @@ class UserController extends Controller
 
     public function getData(){
         $table = user::all();
-        return $table;
+        return $this->respondWithJson($table,$table->count());
     }
 
     public function login(Request $request){
@@ -59,6 +60,16 @@ class UserController extends Controller
         }else{
             echo "No send data";
         }
+    }
+
+    public function respondWithJson($data,$total)
+    {
+        return response()->json([
+            'message' => 'Successfully',
+            'statuscode' => '200',
+            'total' => $total,
+            'data' => $data,
+        ]);
     }
 
 }

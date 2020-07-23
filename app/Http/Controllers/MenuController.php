@@ -9,13 +9,23 @@ class MenuController extends Controller
 {
     function getDataMenuTop(){
     	$table = menu::where('id_table','=',0)->get();
-    	$data=['status'=>'200',"data"=>$table];
-    	echo json_encode($data);
+    	
+    	return $this->respondWithJson($table,$table->count());
     }
 
     function getDataMenuBottom(){
     	$table = menu::where('id_table','=',1)->get();
-    	$data=['status'=>'200','data'=>$table];
-    	echo json_encode($data);
+    	
+    	return $this->respondWithJson($table,$table->count());
+    }
+
+    public function respondWithJson($data,$total)
+    {
+        return response()->json([
+            'message' => 'Successfully',
+            'statuscode' => '200',
+            'total' => $total,
+            'data' => $data,
+        ]);
     }
 }
