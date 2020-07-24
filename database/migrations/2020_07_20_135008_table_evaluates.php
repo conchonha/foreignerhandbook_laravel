@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TableEvaluate extends Migration
+class TableEvaluates extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class TableEvaluate extends Migration
      */
     public function up()
     {
-        Schema::create("Evaluate",function($table){
+        Schema::create("Evaluates",function($table){
             $table->increments('id');
             $table->integer('id_user');
             $table->integer('id_place');
@@ -31,6 +31,6 @@ class TableEvaluate extends Migration
      */
     public function down()
     {
-         Schema::drop('Evaluate');
+         Schema::drop('Evaluates');
     }
 }

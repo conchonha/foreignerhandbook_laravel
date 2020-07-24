@@ -60,3 +60,13 @@ Route::group(['prefix'=>'Evaluate'],function(){
 	Route::post('postLikePlace','EvaluateController@postLikePlace');
 });
 
+//----------------------------COMMENT POSTS-------------------------
+
+Route::group(['prefix'=>'CommentPost'],function(){
+
+	Route::post('getDataUserPosts','CommentPostsController@getDataUserPosts');
+
+	Route::get('commentPosts','CommentPostsController@commentPosts');
+
+});
+
