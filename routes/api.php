@@ -12,6 +12,7 @@ Route::group(['prefix'=>'User'],function(){
 	Route::post('register','UserController@register')->name('register');
 
 	Route::post('login','UserController@login')->name('login');
+
 });
 
 //------------------------------MENU-----------------------

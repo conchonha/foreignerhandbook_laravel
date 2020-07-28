@@ -15,12 +15,12 @@ class EvaluateController extends Controller
     	$rating = $request->rating;
     	$like = $request->like;
 
-    	$count = evaluate::where('evaluate.id_place','=',$id_place)->count();
+    	$count = evaluate::where([['evaluates.id_place',$id_place],['evaluates.id_user',$id_user]])->count();
     	if($count > 0){
-    		$table = evaluate::where('evaluate.id_place','=',$id_place)->get();
+    		$table = evaluate::where([['evaluates.id_place',$id_place],['evaluates.id_user',$id_user]])->get();
     		$numberLike = $table[0]->like;
-    		$table = evaluate::where('evaluate.id_place','=',$id_place)->update(['comment'=>$comment,'rating'=>$rating,'like'=>$like]);
-    		echo "success";
+    		$table = evaluate::where([['evaluates.id_place',$id_place],['evaluates.id_user',$id_user]])->update(['comment'=>$comment,'rating'=>$rating,'like'=>$numberLike ==0 ? 1 : 0]);
+    		echo "update";
     	}else{
     		$table = new evaluate();
     		$table->id_user=$id_user;

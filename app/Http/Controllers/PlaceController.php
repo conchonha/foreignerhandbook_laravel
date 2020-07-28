@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\place;
+use App\evaluate;
 
 class PlaceController extends Controller
 {
 	public function getDataPlaceIdPlace(Request $request){
 		$id = $request->id;
 		if($id != null){
-			$table = place::all();
-			
-			return $this->respondWithJson($table,$table->count());
+			$table = place::where('place.id',$id)->get();
+
+
+			$evaluate = evaluate::select('evaluates.id','evaluates.id_user','evaluates.id_place','evaluates.comment','evaluates.rating','evaluates.like','evaluates.created_at','evaluates.updated_at','acount.name','acount.avatar')->join('acount','acount.id','=','evaluates.id_user')->where('evaluates.id_place',$id)->get();
+			return $this->respondWithJsonGetPlaceIdPlace($table,$evaluate);
 		}
 	}
 
@@ -64,6 +67,19 @@ class PlaceController extends Controller
             'statuscode' => '200',
             'total' => $total,
             'data' => $data,
+        ]);
+    }
+
+    public function respondWithJsonGetPlaceIdPlace($dataPlace,$dataEvaluate)
+    {
+        return response()->json([
+            'message' => 'Successfully',
+            'statuscode' => '200',
+            'totalPlace' => $dataPlace->count(),
+            'totalEvaluate' =>$dataEvaluate->count(),
+            'data' => $dataPlace,
+            'dataEvaluate' => $dataEvaluate,
+            
         ]);
     }
     

@@ -9,6 +9,7 @@ use App\user;
 
 class UserController extends Controller
 {
+
     public function register(Request $request)
     {
     	if($request->has('name') && $request->has('email') && $request->has('password')){
@@ -22,6 +23,7 @@ class UserController extends Controller
     			$table->password = md5($password);
     			$table->token = Str::Random(60);
                 $table->avatar='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRDsanOS9e9oVDhhABGmoSHdjCkXnhfOyXMgg&usqp=CAU';
+                $table->id_hierarchy=1;
     			$table->save();
                 if($table){
                     echo "Susscess";
