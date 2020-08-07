@@ -22,6 +22,10 @@ Route::group(['prefix'=>'Menu'],function(){
 	Route::get('getDataMenuTop','MenuController@getDataMenuTop');
 
 	Route::get('getDataMenuBottom','MenuController@getDataMenuBottom');
+
+	Route::get('getDataMenuAll','MenuController@getDataMenuAll');
+
+
 });
 
 //------------------------------EVENT----------------------
@@ -44,6 +48,11 @@ Route::group(['prefix'=>'Place'],function(){
 
 	Route::get('getDataPlaceIdPlace','PlaceController@getDataPlaceIdPlace');
 
+	Route::get('getDataPlaceStrSearch','PlaceController@getDataPlaceStrSearch');
+
+	Route::get('getLatLngPlace','PlaceController@getLatLngPlace');
+
+	Route::get('getDataPlaceIdMenu','PlaceController@getDataPlaceIdMenu');
 });
 
 //----------------------------INGREDIENT----------------------

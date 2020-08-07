@@ -19,6 +19,11 @@ class MenuController extends Controller
     	return $this->respondWithJson($table,$table->count());
     }
 
+    public function getDataMenuAll(){
+        $table = menu::all();
+        return $this->respondWithJson($table,$table->count());
+    }
+
     public function respondWithJson($data,$total)
     {
         return response()->json([

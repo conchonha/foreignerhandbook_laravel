@@ -8,6 +8,24 @@ use App\evaluate;
 
 class PlaceController extends Controller
 {
+	public function getLatLngPlace(){
+		$table = place::select('place.name','place.image','place.introduce','place.lat','place.lng')->all();
+		return $this->respondWithJson($table,$table->count());
+	}
+
+	public function getDataPlaceIdMenu(Request $request){
+		$id = $request->id;
+		$table = place::select('place.id','place.name','place.image','place.introduce','place.arrayImageView','place.lat','place.lng')->join('ingredient','place.id_ingredient','=','ingredient.id')->where('ingredient.id_menu','=',$id)->get();
+		return $this->respondWithJson($table,$table->count());
+	}
+
+	public function getDataPlaceStrSearch(Request $request){
+		$strSearch=$request->strSearch;
+        $table=place::where('place.name','like','%'.$strSearch.'%')->get();
+		
+		return $this->respondWithJson($table,$table->count());
+	}
+
 	public function getDataPlaceIdPlace(Request $request){
 		$id = $request->id;
 		if($id != null){
@@ -22,7 +40,7 @@ class PlaceController extends Controller
 	public function getDataPlaceHomeRandom(Request $request){
 		$test = $request->check;
 		$id = $request->id;
-		if($test == "0"){
+		if($test == 0){
 			if($id != null){
 				$count = place::join('ingredient','place.id_ingredient','=','ingredient.id')->where('ingredient.id_menu','=',$id)->count();
 				if($count > 7){
