@@ -13,6 +13,12 @@ Route::group(['prefix'=>'User'],function(){
 
 	Route::post('login','UserController@login')->name('login');
 
+	Route::get('updateStatusAcount','UserController@updateStatusAcount');
+
+	Route::get('findUser','UserController@findUser');
+
+	Route::patch('updateFriend','UserController@updateFriend');
+
 });
 
 //------------------------------MENU-----------------------
@@ -31,8 +37,11 @@ Route::group(['prefix'=>'Menu'],function(){
 //------------------------------EVENT----------------------
 
 Route::group(['prefix'=>'Event'],function(){
+	Route::get('getDataEventIdEvent','EvenController@getDataEventIdEvent');
 
 	Route::get('getDataEventRanDom','EvenController@getDataEventRanDom');
+
+	Route::get('getListEvent','EvenController@getListEvent');
 
 });
 
@@ -66,6 +75,8 @@ Route::group(['prefix'=>'Ingredient'],function(){
 //----------------------------EVALUATE-------------------------
 
 Route::group(['prefix'=>'Evaluate'],function(){
+	
+	Route::get('getDataEvaluateIdPlace','EvaluateController@getDataEvaluateIdPlace');
 
 	Route::post('postLikePlace','EvaluateController@postLikePlace');
 });

@@ -9,6 +9,28 @@ use App\user;
 
 class UserController extends Controller
 {
+    public function addFriend(Request $request){
+
+    }
+
+    public function findUser(Request $request){
+        $strSearch=$request->strSearch;
+        $id = $request->id;
+        $table=user::where('name','like','%'.$strSearch.'%')->whereRaw('NOT FIND_IN_SET('.$id.',id_friends)')->get();
+        return $this->respondWithJson($table,$table->count());
+    }
+
+    public function updateStatusAcount(Request $request){
+        if($request->has("email")){
+            $email = $request->email;
+            $update = user::where("email",$email)->update(["status"=>1]);
+            if($update){
+                $table = user::where("email",$email)->get();
+                $data=['status'=>'200','data'=>$table[0]];
+                    echo json_encode($data);
+            }
+        }
+    }
 
     public function register(Request $request)
     {
@@ -24,6 +46,8 @@ class UserController extends Controller
     			$table->token = Str::Random(60);
                 $table->avatar='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRDsanOS9e9oVDhhABGmoSHdjCkXnhfOyXMgg&usqp=CAU';
                 $table->id_hierarchy=1;
+                $table->status = 0;
+                $table->id_hierarchy = "0";
     			$table->save();
                 if($table){
                     echo "Susscess";
@@ -50,7 +74,7 @@ class UserController extends Controller
             $password = $request->password;
 
             if($name != null && $password != null){
-                $table = user::where([['name','=',$name],['password','=',md5($password)]])->get();
+                $table = user::where([['email','=',$name],['password','=',md5($password)]])->get();
                 if($table){
                     $data=['status'=>'200','data'=>$table[0]];
                     echo json_encode($data);
