@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix'=>'User'],function(){
 
+	Route::get("getFriend",'UserController@getFriend');
+
 	Route::get('getData','UserController@getData');
 
 	Route::post('register','UserController@register')->name('register');
@@ -17,7 +19,7 @@ Route::group(['prefix'=>'User'],function(){
 
 	Route::get('findUser','UserController@findUser');
 
-	Route::patch('updateFriend','UserController@updateFriend');
+	Route::put('addFriend','UserController@addFriend');
 
 });
 

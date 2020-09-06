@@ -9,7 +9,27 @@ use App\user;
 
 class UserController extends Controller
 {
+    public function getFriend(Request $request){
+        $table = user::whereRaw('FIND_IN_SET('.$request["id"].',id_friends)')->get();
+        return $this->respondWithJson($table,$table->count());
+    }
+
     public function addFriend(Request $request){
+        try {
+            $table = user::where('name',$request['name'])->get();
+            $id_friends_name = $table[0]->id_friends;
+            $id_name = $table[0]->id;
+
+            $table = user::where('name',$request['my_name'])->get();
+            $id_friends_my_name = $table[0]->id_friends;
+            $id_myname = $table[0]->id;
+        
+            $table = user::where("name",$request['name'])->update(['id_friends'=>$id_friends_name.','.$id_myname]);
+            $table = user::where("name",$request['my_name'])->update(['id_friends'=>$id_friends_my_name.','.$id_name]);
+            echo "Successfully";
+        } catch (Exception $e) {
+             echo "can't make friends right now please try again later";
+        }
 
     }
 
