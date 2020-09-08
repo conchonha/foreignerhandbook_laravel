@@ -12,7 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-    	'http://192.168.3.106/foreignerhandbook_flutter/public/*',
+    	'http://192.168.1.3/foreignerhandbook_flutter/public/*',
        'http://localhost/foreignerhandbook_flutter/public/*',
 
     ];

@@ -9,6 +9,11 @@ use App\user;
 
 class UserController extends Controller
 {
+    public function getUserByUserName(Request $request){
+        $table = user::where("name",$request["name"])->get();
+        return $this->respondWithJson($table,$table->count());
+    }
+
     public function getFriend(Request $request){
         $table = user::whereRaw('FIND_IN_SET('.$request["id"].',id_friends)')->get();
         return $this->respondWithJson($table,$table->count());

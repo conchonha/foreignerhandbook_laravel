@@ -21,6 +21,8 @@ Route::group(['prefix'=>'User'],function(){
 
 	Route::put('addFriend','UserController@addFriend');
 
+	Route::get('getUserByUserName','UserController@getUserByUserName');
+
 });
 
 //------------------------------MENU-----------------------
